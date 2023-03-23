@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Flat_cyan.tres" type="Material" id=1]
+[ext_resource path="res://SingleTile.cs" type="Script" id=2]
+[ext_resource path="res://Flat_red.tres" type="Material" id=3]
+[ext_resource path="res://Flat_green.tres" type="Material" id=4]
+[ext_resource path="res://Flat_blue.tres" type="Material" id=5]
+
+[sub_resource type="CylinderMesh" id=1]
+material = ExtResource( 1 )
+height = 0.5
+radial_segments = 6
+
+[sub_resource type="CylinderShape" id=2]
+height = 0.528523
+radius = 0.892792
+
+[sub_resource type="Animation" id=3]
+resource_name = "FlipZFull"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 360 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "FlipZHalf"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 180 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[node name="SingleTile" type="KinematicBody"]
+script = ExtResource( 2 )
+red = ExtResource( 3 )
+green = ExtResource( 4 )
+blue = ExtResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 2 )
+
+[node name="FlipAnimations" type="AnimationPlayer" parent="."]
+anims/FlipZFull = SubResource( 3 )
+anims/FlipZHalf = SubResource( 4 )
+anims/RESET = SubResource( 5 )
+
+[connection signal="input_event" from="." to="." method="_on_SingleTile_input_event"]

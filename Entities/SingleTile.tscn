@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Flat_cyan.tres" type="Material" id=1]
-[ext_resource path="res://SingleTile.cs" type="Script" id=2]
-[ext_resource path="res://Flat_red.tres" type="Material" id=3]
-[ext_resource path="res://Flat_green.tres" type="Material" id=4]
-[ext_resource path="res://Flat_blue.tres" type="Material" id=5]
+[ext_resource path="res://Entities/SingleTile.cs" type="Script" id=1]
+[ext_resource path="res://Assets/Materials/Flat_red.tres" type="Material" id=2]
+[ext_resource path="res://Assets/Materials/Flat_green.tres" type="Material" id=3]
+[ext_resource path="res://Assets/Materials/Flat_cyan.tres" type="Material" id=4]
+[ext_resource path="res://Assets/Materials/Flat_blue.tres" type="Material" id=5]
 
 [sub_resource type="CylinderMesh" id=1]
-material = ExtResource( 1 )
+material = ExtResource( 4 )
 height = 0.5
 radial_segments = 6
 
@@ -62,9 +62,9 @@ tracks/0/keys = {
 }
 
 [node name="SingleTile" type="KinematicBody"]
-script = ExtResource( 2 )
-red = ExtResource( 3 )
-green = ExtResource( 4 )
+script = ExtResource( 1 )
+red = ExtResource( 2 )
+green = ExtResource( 3 )
 blue = ExtResource( 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/HUD.cs" type="Script" id=1]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 1 )
+statsTextBox = NodePath("StatsPanel/Statistics")
+
+[node name="StatsPanel" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.47451 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -220.0
+margin_top = 26.0
+margin_right = -21.0
+margin_bottom = 401.0
+
+[node name="StatsPanelHeader" type="Label" parent="StatsPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -83.5
+margin_top = 21.0
+margin_right = 74.5
+margin_bottom = 48.0
+text = "Statistics:"
+
+[node name="Statistics" type="Label" parent="StatsPanel"]
+margin_left = 23.0
+margin_top = 50.0
+margin_right = 177.0
+margin_bottom = 348.0

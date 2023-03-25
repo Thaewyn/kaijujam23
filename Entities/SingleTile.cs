@@ -10,11 +10,27 @@ public class SingleTile : KinematicBody {
   [Export] public Material blue;
   private int whichColor = 0;
   private MeshInstance mesh;
+
+  private float column;
+  private float row_northeast;
+  private float row_southeast;
   
   public override void _Ready() {
     flip_anim = GetNode<AnimationPlayer>("FlipAnimations");
     mesh = GetNode<MeshInstance>("MeshInstance");
 
+  }
+
+  public bool SetLocationInformation(Vector3 info) {
+    row_northeast = info.x;
+    row_southeast = info.y;
+    column = info.z;
+
+    return true;
+  }
+
+  public float GetColumn() {
+    return column;
   }
 
   public bool _on_SingleTile_input_event(Node cam, InputEvent e, Vector3 position, Vector3 normal, int shape_idx) {

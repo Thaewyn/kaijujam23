@@ -12,3 +12,6 @@
   - 🪺 Nest
   - 🌐 Your Nation
 - [Hexagonal Grids](https://www.redblobgames.com/grids/hexagons/)
+- [Differences between GLES2 and GLES3](https://docs.godotengine.org/en/3.5/tutorials/rendering/gles2_gles3_differences.html)
+  - GLES2 cannot use the Particles or Particles2D nodes as they require advanced GPU features
+  - GLES2 is not capable of using High Dynamic Range (HDR) rendering features

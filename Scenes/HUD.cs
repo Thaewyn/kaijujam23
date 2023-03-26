@@ -5,6 +5,7 @@ public class HUD : CanvasLayer {
 
   [Export] public NodePath statsTextBox;
   private Label stb;
+  [Signal] delegate void TestButtonPressed();
 
   public override void _Ready() {
     stb = (Label) GetNodeOrNull(statsTextBox);
@@ -17,4 +18,11 @@ public class HUD : CanvasLayer {
     return true;
   }
 
+  public void _on_TestButton_pressed() {
+    GD.Print("Pressed test button!");
+    EmitSignal("TestButtonPressed");
+  }
+
 }
+
+

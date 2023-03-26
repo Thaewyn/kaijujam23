@@ -40,6 +40,10 @@ public class GameController : Spatial {
     anim.Play("StartGameSwoosh");
   }
 
+  public void _on_HUD_TestButtonPressed() {
+    GD.Print("Got 'testbuttonpressed' from hud - test the juice.");
+  }
+
   private bool PopulateTiles() {
     //for each position in tilePositions
     // spawn a new tile
@@ -95,7 +99,7 @@ public class GameController : Spatial {
     }
 
     return new Vector3(-1, -1, column);
-    
+
   }
 
   public void TileWasClicked(Node whichTile) {

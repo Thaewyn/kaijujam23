@@ -119,7 +119,7 @@ tileContainer = NodePath("Level/TilePositions")
 singleTile = ExtResource( 1 )
 
 [node name="MainCam" type="Camera" parent="."]
-transform = Transform( 0.923317, -0.207241, 0.32332, 7.67563e-09, 0.841897, 0.539638, -0.384037, -0.498257, 0.777338, 4.53901, 8.616, 15.195 )
+transform = Transform( 0.923317, -0.207241, 0.32332, 7.67562e-09, 0.841897, 0.539638, -0.384037, -0.498257, 0.777338, 4.53901, 8.616, 15.195 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.26119, 12.0125, 3.7402 )
@@ -264,3 +264,4 @@ anims/RESET = SubResource( 5 )
 anims/StartGameSwoosh = SubResource( 4 )
 
 [connection signal="StartButtonPressed" from="MainMenu" to="." method="_on_MainMenu_StartButtonPressed"]
+[connection signal="TestButtonPressed" from="HUD" to="." method="_on_HUD_TestButtonPressed"]

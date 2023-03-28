@@ -14,6 +14,8 @@ public class SingleTile : KinematicBody {
   private float column;
   private float row_northeast;
   private float row_southeast;
+
+  private bool isFlipped = false;
   
   public override void _Ready() {
     flip_anim = GetNode<AnimationPlayer>("FlipAnimations");
@@ -47,7 +49,7 @@ public class SingleTile : KinematicBody {
         //only trigger event on mouse button *release*
         // GD.Print("Do The Thing.");
         // FlipMe();
-        ToggleColor();
+        // ToggleColor();
         GameController.GetInstance().TileWasClicked(this);
       }
       return true;

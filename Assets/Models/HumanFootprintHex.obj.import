@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/HumanFootprintHex.obj-0981b17533d94a45814e187dd2bf9631.mesh"
+
+[deps]
+
+files=[ "res://.import/HumanFootprintHex.obj-0981b17533d94a45814e187dd2bf9631.mesh" ]
+
+source_file="res://Assets/Models/HumanFootprintHex.obj"
+dest_files=[ "res://.import/HumanFootprintHex.obj-0981b17533d94a45814e187dd2bf9631.mesh", "res://.import/HumanFootprintHex.obj-0981b17533d94a45814e187dd2bf9631.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

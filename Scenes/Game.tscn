@@ -1,9 +1,24 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Entities/SingleTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GameController.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Models/sword-model.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://Assets/Models/GameBoard.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://Assets/Materials/Flat_lightgreen.tres" type="Material" id=7]
+[ext_resource path="res://Assets/Materials/Flat_blue.tres" type="Material" id=8]
+[ext_resource path="res://Assets/Materials/Flat_green.tres" type="Material" id=9]
+[ext_resource path="res://Assets/Materials/Flat_red.tres" type="Material" id=10]
+[ext_resource path="res://Assets/Materials/Flat_cyan.tres" type="Material" id=11]
+[ext_resource path="res://Assets/Materials/Flat_brown.tres" type="Material" id=12]
+[ext_resource path="res://Assets/Materials/Flat_grey.tres" type="Material" id=13]
+[ext_resource path="res://Entities/MountainTile.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Entities/HumanFootprintTile.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Entities/CityTile.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Entities/LakeTile.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Entities/MonsterFootprintTile.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Entities/ForestTile.tscn" type="PackedScene" id=19]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -113,10 +128,20 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 
+[sub_resource type="CapsuleShape" id=6]
+radius = 0.0664838
+height = 0.631712
+
 [node name="Game" type="Spatial"]
 script = ExtResource( 2 )
 tileContainer = NodePath("Level/TilePositions")
 singleTile = ExtResource( 1 )
+cityTile = ExtResource( 16 )
+forestTile = ExtResource( 19 )
+lakeTile = ExtResource( 17 )
+mountainTile = ExtResource( 14 )
+monsterTile = ExtResource( 18 )
+humanTile = ExtResource( 15 )
 
 [node name="MainCam" type="Camera" parent="."]
 transform = Transform( 0.923317, -0.207241, 0.32332, 7.67562e-09, 0.841897, 0.539638, -0.384037, -0.498257, 0.777338, 4.53901, 8.616, 15.195 )
@@ -137,10 +162,112 @@ input_ray_pickable = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Level/Ground"]
 transform = Transform( 10, 0, 0, 0, 0.2, 0, 0, 0, 10, 0, 0, 0 )
+visible = false
 mesh = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Level/Ground"]
 shape = SubResource( 2 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Level/Ground"]
+transform = Transform( 18, 0, 0, 0, 18, 0, 0, 0, 18, -2.09364, 0.911073, -3.16807 )
+mesh = ExtResource( 6 )
+material/0 = ExtResource( 7 )
+material/1 = ExtResource( 12 )
+material/2 = ExtResource( 12 )
+material/3 = ExtResource( 12 )
+material/4 = ExtResource( 12 )
+material/5 = ExtResource( 12 )
+material/6 = ExtResource( 12 )
+material/7 = ExtResource( 8 )
+material/8 = ExtResource( 9 )
+material/9 = ExtResource( 9 )
+material/10 = ExtResource( 9 )
+material/11 = ExtResource( 9 )
+material/12 = ExtResource( 9 )
+material/13 = ExtResource( 9 )
+material/14 = ExtResource( 9 )
+material/15 = ExtResource( 9 )
+material/16 = ExtResource( 12 )
+material/17 = ExtResource( 12 )
+material/18 = ExtResource( 12 )
+material/19 = ExtResource( 12 )
+material/20 = ExtResource( 12 )
+material/21 = ExtResource( 12 )
+material/22 = ExtResource( 12 )
+material/23 = ExtResource( 12 )
+material/24 = ExtResource( 12 )
+material/25 = ExtResource( 12 )
+material/26 = ExtResource( 12 )
+material/27 = ExtResource( 12 )
+material/28 = ExtResource( 12 )
+material/29 = ExtResource( 12 )
+material/30 = ExtResource( 12 )
+material/31 = ExtResource( 12 )
+material/32 = ExtResource( 12 )
+material/33 = ExtResource( 12 )
+material/34 = ExtResource( 12 )
+material/35 = ExtResource( 12 )
+material/36 = ExtResource( 12 )
+material/37 = ExtResource( 12 )
+material/38 = ExtResource( 12 )
+material/39 = ExtResource( 12 )
+material/40 = ExtResource( 12 )
+material/41 = ExtResource( 12 )
+material/42 = ExtResource( 12 )
+material/43 = ExtResource( 12 )
+material/44 = ExtResource( 9 )
+material/45 = ExtResource( 9 )
+material/46 = ExtResource( 9 )
+material/47 = ExtResource( 9 )
+material/48 = ExtResource( 9 )
+material/49 = ExtResource( 9 )
+material/50 = ExtResource( 9 )
+material/51 = ExtResource( 9 )
+material/52 = ExtResource( 9 )
+material/53 = ExtResource( 9 )
+material/54 = ExtResource( 9 )
+material/55 = ExtResource( 9 )
+material/56 = ExtResource( 9 )
+material/57 = ExtResource( 9 )
+material/58 = ExtResource( 9 )
+material/59 = ExtResource( 9 )
+material/60 = ExtResource( 9 )
+material/61 = ExtResource( 9 )
+material/62 = ExtResource( 9 )
+material/63 = ExtResource( 9 )
+material/64 = ExtResource( 9 )
+material/65 = ExtResource( 9 )
+material/66 = ExtResource( 9 )
+material/67 = ExtResource( 9 )
+material/68 = ExtResource( 9 )
+material/69 = ExtResource( 12 )
+material/70 = ExtResource( 12 )
+material/71 = ExtResource( 12 )
+material/72 = ExtResource( 9 )
+material/73 = ExtResource( 9 )
+material/74 = ExtResource( 9 )
+material/75 = ExtResource( 9 )
+material/76 = ExtResource( 9 )
+material/77 = ExtResource( 9 )
+material/78 = ExtResource( 9 )
+material/79 = ExtResource( 9 )
+material/80 = ExtResource( 9 )
+material/81 = ExtResource( 13 )
+material/82 = ExtResource( 13 )
+material/83 = ExtResource( 13 )
+material/84 = ExtResource( 13 )
+material/85 = ExtResource( 13 )
+material/86 = ExtResource( 13 )
+material/87 = ExtResource( 13 )
+material/88 = ExtResource( 13 )
+material/89 = ExtResource( 13 )
+material/92 = ExtResource( 12 )
+material/93 = ExtResource( 13 )
+material/94 = ExtResource( 10 )
+material/95 = ExtResource( 11 )
+material/96 = ExtResource( 8 )
+material/97 = ExtResource( 12 )
+material/98 = ExtResource( 10 )
 
 [node name="TilePositions" type="Position3D" parent="Level"]
 
@@ -262,6 +389,18 @@ visible = false
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 5 )
 anims/StartGameSwoosh = SubResource( 4 )
+
+[node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.53165, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
+transform = Transform( -0.00870913, 0, -0.999962, -0.999868, -0.0137005, 0.00870831, -0.0136999, 0.999906, 0.000119319, 0, 0.0115156, -0.270674 )
+mesh = ExtResource( 5 )
+skeleton = NodePath("")
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0115156, 0 )
+shape = SubResource( 6 )
 
 [connection signal="StartButtonPressed" from="MainMenu" to="." method="_on_MainMenu_StartButtonPressed"]
 [connection signal="TestButtonPressed" from="HUD" to="." method="_on_HUD_TestButtonPressed"]

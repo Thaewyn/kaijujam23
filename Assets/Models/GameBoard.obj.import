@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/GameBoard.obj-46ed2b512a3045bc686a6531acbbdfa2.mesh"
+
+[deps]
+
+files=[ "res://.import/GameBoard.obj-46ed2b512a3045bc686a6531acbbdfa2.mesh" ]
+
+source_file="res://Assets/Models/GameBoard.obj"
+dest_files=[ "res://.import/GameBoard.obj-46ed2b512a3045bc686a6531acbbdfa2.mesh", "res://.import/GameBoard.obj-46ed2b512a3045bc686a6531acbbdfa2.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/LakeHex.obj-614b86a7410a0a23024fbbdf6985f48b.mesh"
+
+[deps]
+
+files=[ "res://.import/LakeHex.obj-614b86a7410a0a23024fbbdf6985f48b.mesh" ]
+
+source_file="res://Assets/Models/LakeHex.obj"
+dest_files=[ "res://.import/LakeHex.obj-614b86a7410a0a23024fbbdf6985f48b.mesh", "res://.import/LakeHex.obj-614b86a7410a0a23024fbbdf6985f48b.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

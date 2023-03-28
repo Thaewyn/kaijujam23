@@ -6,6 +6,12 @@ public class GameController : Spatial {
   [Export] public NodePath tileContainer;
   private Position3D tilePositions;
   [Export] public PackedScene singleTile;
+  [Export] public PackedScene cityTile;
+  [Export] public PackedScene forestTile;
+  [Export] public PackedScene lakeTile;
+  [Export] public PackedScene mountainTile;
+  [Export] public PackedScene monsterTile;
+  [Export] public PackedScene humanTile;
   // [Export] public NodePath mainCamera;
   // private MainCam mainCam_actual;
   private CanvasLayer mainMenu;
@@ -49,7 +55,33 @@ public class GameController : Spatial {
 
       Vector3 gridPosition = IdentifyTilePosition(pos);
 
-      Node inst = singleTile.Instance();
+      var random = new Random();
+      int whichTile = random.Next(1,7); //holy cow we can do more intelligent tile picking than this, but that requires more work.
+      Node inst;
+      switch(whichTile) {
+        case 1:
+        inst = cityTile.Instance();
+        break;
+        case 2:
+        inst = mountainTile.Instance();
+        break;
+        case 3:
+        inst = lakeTile.Instance();
+        break;
+        case 4:
+        inst = forestTile.Instance();
+        break;
+        case 5:
+        inst = humanTile.Instance();
+        break;
+        case 6:
+        inst = monsterTile.Instance();
+        break;
+        default:
+        inst = singleTile.Instance();
+        break;
+      }
+      // Node inst = singleTile.Instance();
       SingleTile tile = inst as SingleTile;
       tile.SetLocationInformation(gridPosition);
       tile.AddToGroup("tiles");

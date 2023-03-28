@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Entities/SingleTile.cs" type="Script" id=1]
-[ext_resource path="res://Assets/Materials/Flat_red.tres" type="Material" id=2]
+[ext_resource path="res://Entities/LakeTile.cs" type="Script" id=1]
+[ext_resource path="res://Assets/Materials/Flat_blue.tres" type="Material" id=2]
 [ext_resource path="res://Assets/Materials/Flat_green.tres" type="Material" id=3]
-[ext_resource path="res://Assets/Materials/Flat_blue.tres" type="Material" id=5]
-[ext_resource path="res://Assets/Models/BlankHexTile.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://Assets/Materials/Flat_cyan.tres" type="Material" id=4]
+[ext_resource path="res://Assets/Models/LakeHex.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://Assets/Materials/Flat_brown.tres" type="Material" id=6]
 
 [sub_resource type="CylinderShape" id=2]
 height = 0.528523
@@ -56,15 +57,22 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
-[node name="SingleTile" type="KinematicBody"]
+[node name="LakeTile" type="KinematicBody"]
 script = ExtResource( 1 )
-red = ExtResource( 2 )
-green = ExtResource( 3 )
-blue = ExtResource( 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( -1.74846e-07, 0, 4, 0, 5, 0, -4, 0, -1.74846e-07, 0, -0.161265, 0 )
-mesh = ExtResource( 6 )
+transform = Transform( -1.74846e-07, 0, 4, 0, 5, 0, -4, 0, -1.74846e-07, -0.142427, 0.370929, -0.0799573 )
+mesh = ExtResource( 5 )
+material/0 = ExtResource( 6 )
+material/1 = ExtResource( 3 )
+material/2 = ExtResource( 6 )
+material/3 = ExtResource( 3 )
+material/4 = ExtResource( 6 )
+material/5 = ExtResource( 2 )
+material/6 = ExtResource( 3 )
+material/7 = ExtResource( 3 )
+material/8 = ExtResource( 3 )
+material/9 = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 2 )

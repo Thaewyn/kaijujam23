@@ -29,3 +29,17 @@ margin_left = 23.0
 margin_top = 50.0
 margin_right = 177.0
 margin_bottom = 348.0
+
+[node name="TestButton" type="Button" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -205.0
+margin_top = 348.0
+margin_right = -40.0
+margin_bottom = 384.0
+text = "Test the juice!"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[connection signal="pressed" from="TestButton" to="." method="_on_TestButton_pressed"]

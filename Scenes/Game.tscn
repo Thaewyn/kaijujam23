@@ -142,6 +142,7 @@ lakeTile = ExtResource( 17 )
 mountainTile = ExtResource( 14 )
 monsterTile = ExtResource( 18 )
 humanTile = ExtResource( 15 )
+mainCamera = NodePath("MainCam")
 
 [node name="MainCam" type="Camera" parent="."]
 transform = Transform( 0.923317, -0.207241, 0.32332, 7.67562e-09, 0.841897, 0.539638, -0.384037, -0.498257, 0.777338, 4.53901, 8.616, 15.195 )
@@ -403,3 +404,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0115156, 0 )
 shape = SubResource( 6 )
 
 [connection signal="StartButtonPressed" from="MainMenu" to="." method="_on_MainMenu_StartButtonPressed"]
+[connection signal="TestButtonPressed" from="HUD" to="." method="_on_HUD_TestButtonPressed"]

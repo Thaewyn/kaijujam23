@@ -12,22 +12,32 @@ public class GameController : Spatial {
   [Export] public PackedScene mountainTile;
   [Export] public PackedScene monsterTile;
   [Export] public PackedScene humanTile;
-  // [Export] public NodePath mainCamera;
-  // private MainCam mainCam_actual;
+  [Export] public NodePath mainCamera;
+  private Camera mainCam_actual;
   private CanvasLayer mainMenu;
   private HUD hud;
   private AnimationPlayer anim;
   private int clickCounter = 0;
   // private SceneTreeTween flipTween;
 
+  private float shakeDuration = 0.0f;
+  [Export] public float shakeMaxDuration = 1.0f;
+  [Export] public float maxShakeH = 5.0f;
+  [Export] public float maxShakeV = 5.0f;
+  private OpenSimplexNoise noise = new OpenSimplexNoise();
+
   public override void _Ready() {
     tilePositions = (Position3D) GetNodeOrNull(tileContainer);
-    // mainCam_actual = (MainCam) GetNodeOrNull(mainCamera);
+    mainCam_actual = (Camera) GetNodeOrNull(mainCamera);
     anim = GetNode<AnimationPlayer>("AnimationPlayer");
 
     mainMenu = GetNode<CanvasLayer>("MainMenu");
     hud = GetNode<HUD>("HUD");
     // flipTween = GetTree().CreateTween();//GetNode<Tween>("FlipTweener");
+    noise.Seed = (int)GD.Randi();
+    noise.Octaves = 4;
+    noise.Period = 20.0f;
+    noise.Persistence = 0.8f;
 
     if(tilePositions != null) {
       PopulateTiles();
@@ -40,11 +50,29 @@ public class GameController : Spatial {
     }
   }
 
+  public override void _Process(float delta) {
+    if (shakeDuration > 0) {
+      shakeDuration -= delta;
+      mainCam_actual.HOffset = noise.GetNoise1d(OS.GetTicksMsec() * 0.1f) * shakeDuration * maxShakeH;
+      mainCam_actual.VOffset = noise.GetNoise1d(OS.GetTicksMsec() * 0.1f + 100.0f) * shakeDuration * maxShakeV;
+    }
+  }
+
   public void _on_MainMenu_StartButtonPressed() {
     GD.Print("Got 'startbuttonpressed' from mainmenu - tell camera to animate.");
     // mainCam_actual.StartGame();
     anim.Play("StartGameSwoosh");
   }
+
+  public void _on_HUD_TestButtonPressed() {
+    GD.Print("Got 'testbuttonpressed' from hud - test the juice.");
+    shakeDuration = shakeMaxDuration;
+  }
+
+  // private void slideInCamera() {
+  //   SceneTreeTween tw = GetTree().CreateTween();
+  //   tw.TweenProperty(mainCam_actual, "h_offset", 0.0f, shakeDuration).From(maxShakeH).SetTrans(Tween.TransitionType.Bounce).SetEase(Tween.EaseType.Out);
+  // }
 
   private bool PopulateTiles() {
     //for each position in tilePositions
@@ -127,7 +155,7 @@ public class GameController : Spatial {
     }
 
     return new Vector3(-1, -1, column);
-    
+
   }
 
   public void TileWasClicked(Node whichTile) {
@@ -155,7 +183,7 @@ public class GameController : Spatial {
         i++; //get row
         GD.Print("attempting to call interpolateCallback on tile "+tile.Name+" with i="+i);
         tw.TweenCallback(tile, "FlipMe").SetDelay((0.1f * i));
-        //flipTween.InterpolateCallback(tile, (0.1f * i), "FlipMe");
+        // flipTween.InterpolateCallback(tile, (0.1f * i), "FlipMe");
         // tile.FlipMe();
       }
     }

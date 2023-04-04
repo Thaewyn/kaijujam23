@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/HUD.cs" type="Script" id=1]
+[ext_resource path="res://UI/CyberTheme.tres" type="Theme" id=3]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -33,10 +34,11 @@ margin_bottom = 348.0
 [node name="TestButton" type="Button" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -205.0
-margin_top = 348.0
-margin_right = -40.0
-margin_bottom = 384.0
+margin_left = -204.0
+margin_top = 317.0
+margin_right = -39.0
+margin_bottom = 387.0
+theme = ExtResource( 3 )
 text = "Test the juice!"
 __meta__ = {
 "_edit_lock_": true

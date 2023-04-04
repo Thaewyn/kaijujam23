@@ -55,6 +55,11 @@ public class GameController : Spatial {
       shakeDuration -= delta;
       mainCam_actual.HOffset = noise.GetNoise1d(OS.GetTicksMsec() * 0.1f) * shakeDuration * maxShakeH;
       mainCam_actual.VOffset = noise.GetNoise1d(OS.GetTicksMsec() * 0.1f + 100.0f) * shakeDuration * maxShakeV;
+      
+      //add chromatic aberration
+      ColorRect screenbuffer = mainCam_actual.GetNode<ColorRect>("CanvasLayer/ColorRect");
+      ShaderMaterial shader = screenbuffer.Material as ShaderMaterial;
+      shader.SetShaderParam("offset", shakeDuration * 30);
     }
   }
 

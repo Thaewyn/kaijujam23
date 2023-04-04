@@ -3,6 +3,12 @@ using System;
 
 public class MainCam : Camera {
 
+  public void _on_VScrollBar_value_changed(float val) {
+    ColorRect screenbuffer = GetNode<ColorRect>("CanvasLayer/ColorRect");
+    ShaderMaterial shader = screenbuffer.Material as ShaderMaterial;
+    shader.SetShaderParam("offset", val);
+  }
+
   // private AnimationPlayer anim;
   // private MainCam camera;
   // private OpenSimplexNoise noise = new OpenSimplexNoise();

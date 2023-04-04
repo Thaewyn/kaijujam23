@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[ext_resource path="res://UI/Frames/NeonCircuit-active.tres" type="StyleBox" id=1]
+[ext_resource path="res://UI/Frames/NeonCircuit-hover.tres" type="StyleBox" id=2]
+[ext_resource path="res://UI/Frames/NeonCircuit-disabled.tres" type="StyleBox" id=3]
+[ext_resource path="res://UI/Frames/NeonCircuit-focus.tres" type="StyleBox" id=4]
+[ext_resource path="res://UI/Frames/NeonCircuit.tres" type="StyleBox" id=5]
+
+[resource]
+Button/styles/disabled = ExtResource( 3 )
+Button/styles/focus = ExtResource( 4 )
+Button/styles/hover = ExtResource( 2 )
+Button/styles/normal = ExtResource( 5 )
+Button/styles/pressed = ExtResource( 1 )

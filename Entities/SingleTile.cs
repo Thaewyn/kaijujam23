@@ -15,12 +15,12 @@ public class SingleTile : KinematicBody {
   private float row_northeast;
   private float row_southeast;
 
-  private bool isFlipped = false;
+  private bool isFaceUp = false;
   
   public override void _Ready() {
     flip_anim = GetNode<AnimationPlayer>("FlipAnimations");
     mesh = GetNode<MeshInstance>("MeshInstance");
-
+    isFaceUp = true;
   }
 
   public bool SetLocationInformation(Vector3 info) {
@@ -39,18 +39,10 @@ public class SingleTile : KinematicBody {
     // GD.Print("any input event");
     if(e is InputEventMouseButton) {
       InputEventMouseButton b = e as InputEventMouseButton;
-      
-      // GD.Print("Tile got clicked, info:");
-      // // GD.Print("cam = "+cam.Name);
-      // GD.Print(e);
-      // GD.Print(b.ButtonIndex); //1 is left mouse, 2 is right mouse, 3 is middle mouse.
-      // GD.Print(b.Pressed); //true on mousedown, false on mouseup
-      if (b.ButtonIndex == 1 && b.Pressed == false) {
-        //only trigger event on mouse button *release*
-        // GD.Print("Do The Thing.");
-        // FlipMe();
-        // ToggleColor();
+      if (b.ButtonIndex == 1 && b.Pressed == false) { //left click release
         GameController.GetInstance().TileWasClicked(this);
+      } else if (b.ButtonIndex == 2 && b.Pressed == false) { //right click release
+        GameController.GetInstance().TileFlagAttempt(this);
       }
       return true;
     }
@@ -59,26 +51,35 @@ public class SingleTile : KinematicBody {
   }
 
   public void FlipMe() {
-    GD.Print("Tile received 'flip' call");
-    flip_anim.Play("FlipZHalf");
-
-  }
-
-  public void ToggleColor() {
-    whichColor++;
-    switch(whichColor) {
-      case 1:
-        mesh.SetSurfaceMaterial(0,red);
-      break;
-      case 2:
-        mesh.SetSurfaceMaterial(0,green);
-      break;
-      case 0:
-      default:
-        mesh.SetSurfaceMaterial(0,blue);
-        whichColor = 0;
-      break;
+    // GD.Print("Tile received 'flip' call");
+    if(isFaceUp) {
+      flip_anim.Play("FlipFaceDown");
+      isFaceUp = false;
+    } else {
+      flip_anim.Play("FlipFaceUp");
+      isFaceUp = true;
     }
   }
+
+  public bool GetIsFaceUp() {
+    return isFaceUp;
+  }
+
+  // public void ToggleColor() {
+  //   whichColor++;
+  //   switch(whichColor) {
+  //     case 1:
+  //       mesh.SetSurfaceMaterial(0,red);
+  //     break;
+  //     case 2:
+  //       mesh.SetSurfaceMaterial(0,green);
+  //     break;
+  //     case 0:
+  //     default:
+  //       mesh.SetSurfaceMaterial(0,blue);
+  //       whichColor = 0;
+  //     break;
+  //   }
+  // }
 
 }

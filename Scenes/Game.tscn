@@ -404,4 +404,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0115156, 0 )
 shape = SubResource( 6 )
 
 [connection signal="StartButtonPressed" from="MainMenu" to="." method="_on_MainMenu_StartButtonPressed"]
+[connection signal="DifficultySliderChanged" from="HUD" to="." method="_on_HUD_DifficultySliderChanged"]
+[connection signal="ResetButtonPressed" from="HUD" to="." method="_on_HUD_ResetButtonPressed"]
 [connection signal="TestButtonPressed" from="HUD" to="." method="_on_HUD_TestButtonPressed"]

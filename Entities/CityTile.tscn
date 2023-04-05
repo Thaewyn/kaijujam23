@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Entities/CityTile.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Models/CityHex.obj" type="ArrayMesh" id=2]
@@ -10,6 +10,38 @@ height = 0.528523
 radius = 0.892792
 
 [sub_resource type="Animation" id=3]
+resource_name = "FlipFaceDown"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 180 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "FlipFaceUp"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 180 ), Vector3( 0, 0, 360 ) ]
+}
+
+[sub_resource type="Animation" id=5]
 resource_name = "FlipZFull"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -24,7 +56,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 360 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 resource_name = "FlipZHalf"
 length = 0.5
 tracks/0/type = "value"
@@ -40,7 +72,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 180 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -77,8 +109,10 @@ material/10 = ExtResource( 3 )
 shape = SubResource( 2 )
 
 [node name="FlipAnimations" type="AnimationPlayer" parent="."]
-anims/FlipZFull = SubResource( 3 )
-anims/FlipZHalf = SubResource( 4 )
-anims/RESET = SubResource( 5 )
+anims/FlipFaceDown = SubResource( 3 )
+anims/FlipFaceUp = SubResource( 4 )
+anims/FlipZFull = SubResource( 5 )
+anims/FlipZHalf = SubResource( 6 )
+anims/RESET = SubResource( 7 )
 
 [connection signal="input_event" from="." to="." method="_on_SingleTile_input_event"]

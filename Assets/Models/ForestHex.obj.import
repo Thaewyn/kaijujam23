@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/ForestHex.obj-5544279fedd3498dc3f71a4e82444d95.mesh"
+
+[deps]
+
+files=[ "res://.import/ForestHex.obj-5544279fedd3498dc3f71a4e82444d95.mesh" ]
+
+source_file="res://Assets/Models/ForestHex.obj"
+dest_files=[ "res://.import/ForestHex.obj-5544279fedd3498dc3f71a4e82444d95.mesh", "res://.import/ForestHex.obj-5544279fedd3498dc3f71a4e82444d95.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

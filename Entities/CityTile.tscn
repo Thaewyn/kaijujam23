@@ -1,17 +1,15 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Entities/SingleTile.cs" type="Script" id=1]
-[ext_resource path="res://Assets/Materials/Flat_red.tres" type="Material" id=2]
-[ext_resource path="res://Assets/Materials/Flat_green.tres" type="Material" id=3]
-[ext_resource path="res://Assets/Materials/Flat_cyan.tres" type="Material" id=4]
-[ext_resource path="res://Assets/Materials/Flat_blue.tres" type="Material" id=5]
-[ext_resource path="res://Assets/Models/BlankHexTile.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://Entities/CityTile.cs" type="Script" id=1]
+[ext_resource path="res://Assets/Models/CityHex.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Assets/Materials/Flat_cyan.tres" type="Material" id=3]
+[ext_resource path="res://Assets/Materials/Flat_grey.tres" type="Material" id=4]
 
 [sub_resource type="CylinderShape" id=2]
 height = 0.528523
 radius = 0.892792
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 resource_name = "FlipFaceDown"
 length = 0.5
 tracks/0/type = "value"
@@ -27,7 +25,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 180 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 resource_name = "FlipFaceUp"
 length = 0.5
 tracks/0/type = "value"
@@ -43,7 +41,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 180 ), Vector3( 0, 0, 360 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=5]
 resource_name = "FlipZFull"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -58,7 +56,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 360 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 resource_name = "FlipZHalf"
 length = 0.5
 tracks/0/type = "value"
@@ -74,7 +72,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 180 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -89,25 +87,32 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
-[node name="SingleTile" type="KinematicBody"]
+[node name="CityTile" type="KinematicBody"]
 script = ExtResource( 1 )
-red = ExtResource( 2 )
-green = ExtResource( 3 )
-blue = ExtResource( 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( -1.74846e-07, 0, 4, 0, 5, 0, -4, 0, -1.74846e-07, 0, -0.161265, 0 )
-mesh = ExtResource( 6 )
+transform = Transform( -1.74846e-07, 0, 4, 0, 5, 0, -4, 0, -1.74846e-07, -0.0312283, 0.671857, -0.0799573 )
+mesh = ExtResource( 2 )
 material/0 = ExtResource( 4 )
+material/1 = ExtResource( 4 )
+material/2 = ExtResource( 4 )
+material/3 = ExtResource( 4 )
+material/4 = ExtResource( 4 )
+material/5 = ExtResource( 4 )
+material/6 = ExtResource( 4 )
+material/7 = ExtResource( 4 )
+material/8 = ExtResource( 4 )
+material/9 = ExtResource( 4 )
+material/10 = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 2 )
 
 [node name="FlipAnimations" type="AnimationPlayer" parent="."]
-anims/FlipFaceDown = SubResource( 6 )
-anims/FlipFaceUp = SubResource( 7 )
-anims/FlipZFull = SubResource( 3 )
-anims/FlipZHalf = SubResource( 4 )
-anims/RESET = SubResource( 5 )
+anims/FlipFaceDown = SubResource( 3 )
+anims/FlipFaceUp = SubResource( 4 )
+anims/FlipZFull = SubResource( 5 )
+anims/FlipZHalf = SubResource( 6 )
+anims/RESET = SubResource( 7 )
 
 [connection signal="input_event" from="." to="." method="_on_SingleTile_input_event"]

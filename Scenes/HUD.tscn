@@ -4,28 +4,107 @@
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
-statsTextBox = NodePath("StatsPanel/Statistics")
+statsTextBox = NodePath("StatsPanel/VBoxContainer2/RichTextLabel")
+restartButton = NodePath("VBoxContainer/RestartButton")
+levelupButton = NodePath("VBoxContainer/DifficultyUpBtn")
+playagainButton = NodePath("VBoxContainer/PlayAgainBtn")
 
 [node name="StatsPanel" type="Panel" parent="."]
 self_modulate = Color( 1, 1, 1, 0.47451 )
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -220.0
-margin_top = 26.0
-margin_right = -21.0
-margin_bottom = 401.0
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = 20.0
+margin_right = -20.0
 
-[node name="StatsPanelHeader" type="Label" parent="StatsPanel"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -83.5
-margin_top = 21.0
-margin_right = 74.5
-margin_bottom = 48.0
-text = "Statistics:"
+[node name="VBoxContainer2" type="VBoxContainer" parent="StatsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
 
-[node name="Statistics" type="Label" parent="StatsPanel"]
-margin_left = 23.0
-margin_top = 50.0
-margin_right = 177.0
-margin_bottom = 348.0
+[node name="StatsPanelHeader" type="Label" parent="StatsPanel/VBoxContainer2"]
+margin_right = 210.0
+margin_bottom = 14.0
+text = "Log:"
+
+[node name="Spacer" type="Label" parent="StatsPanel/VBoxContainer2"]
+margin_top = 18.0
+margin_right = 210.0
+margin_bottom = 32.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="StatsPanel/VBoxContainer2"]
+margin_top = 36.0
+margin_right = 210.0
+margin_bottom = 51.0
+fit_content_height = true
+
+[node name="TestButton" type="Button" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -205.0
+margin_top = 348.0
+margin_right = -40.0
+margin_bottom = 384.0
+text = "Test the juice!"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ResetButton" type="Button" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -182.0
+margin_top = 110.0
+margin_right = -50.0
+margin_bottom = 142.0
+text = "Reset Game Board"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_bottom = 0.5
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 250.0
+alignment = 1
+
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+margin_top = 106.0
+margin_right = 230.0
+margin_bottom = 126.0
+text = "Restart Level"
+
+[node name="DifficultyUpBtn" type="Button" parent="VBoxContainer"]
+margin_top = 130.0
+margin_right = 230.0
+margin_bottom = 150.0
+text = "Increase Difficulty"
+
+[node name="DifficultySlider" type="HSlider" parent="VBoxContainer"]
+visible = false
+margin_top = 144.0
+margin_right = 230.0
+margin_bottom = 160.0
+min_value = 1.0
+max_value = 10.0
+value = 2.0
+
+[node name="PlayAgainBtn" type="Button" parent="VBoxContainer"]
+margin_top = 154.0
+margin_right = 230.0
+margin_bottom = 174.0
+text = "Play Again!"
+
+[connection signal="pressed" from="TestButton" to="." method="_on_TestButton_pressed"]
+[connection signal="pressed" from="ResetButton" to="." method="_on_ResetButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_ResetButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/DifficultyUpBtn" to="." method="_on_DifficultyUpBtn_pressed"]
+[connection signal="drag_ended" from="VBoxContainer/DifficultySlider" to="." method="_on_DifficultySlider_drag_ended"]
+[connection signal="value_changed" from="VBoxContainer/DifficultySlider" to="." method="_on_DifficultySlider_value_changed"]
+[connection signal="pressed" from="VBoxContainer/PlayAgainBtn" to="." method="_on_PlayAgainBtn_pressed"]

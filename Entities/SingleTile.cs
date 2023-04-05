@@ -51,7 +51,7 @@ public class SingleTile : KinematicBody {
   }
 
   public void FlipMe() {
-    GD.Print("Tile received 'flip' call");
+    // GD.Print("Tile received 'flip' call");
     if(isFaceUp) {
       flip_anim.Play("FlipFaceDown");
       isFaceUp = false;

@@ -1,16 +1,14 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Entities/SingleTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GameController.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/Models/sword-model.obj" type="ArrayMesh" id=5]
 [ext_resource path="res://Assets/Models/GameBoard.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://Assets/Materials/Flat_lightgreen.tres" type="Material" id=7]
 [ext_resource path="res://Assets/Materials/Flat_blue.tres" type="Material" id=8]
 [ext_resource path="res://Assets/Materials/Flat_green.tres" type="Material" id=9]
 [ext_resource path="res://Assets/Materials/Flat_red.tres" type="Material" id=10]
-[ext_resource path="res://Assets/Materials/Flat_cyan.tres" type="Material" id=11]
 [ext_resource path="res://Assets/Materials/Flat_brown.tres" type="Material" id=12]
 [ext_resource path="res://Assets/Materials/Flat_grey.tres" type="Material" id=13]
 [ext_resource path="res://Entities/MountainTile.tscn" type="PackedScene" id=14]
@@ -127,10 +125,6 @@ tracks/3/keys = {
 "update": 1,
 "values": [ false, true ]
 }
-
-[sub_resource type="CapsuleShape" id=6]
-radius = 0.0664838
-height = 0.631712
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 2 )
@@ -265,7 +259,7 @@ material/89 = ExtResource( 13 )
 material/92 = ExtResource( 12 )
 material/93 = ExtResource( 13 )
 material/94 = ExtResource( 10 )
-material/95 = ExtResource( 11 )
+material/95 = ExtResource( 8 )
 material/96 = ExtResource( 8 )
 material/97 = ExtResource( 12 )
 material/98 = ExtResource( 10 )
@@ -391,19 +385,12 @@ visible = false
 anims/RESET = SubResource( 5 )
 anims/StartGameSwoosh = SubResource( 4 )
 
-[node name="RigidBody" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.53165, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
-transform = Transform( -0.00870913, 0, -0.999962, -0.999868, -0.0137005, 0.00870831, -0.0136999, 0.999906, 0.000119319, 0, 0.0115156, -0.270674 )
-mesh = ExtResource( 5 )
-skeleton = NodePath("")
-
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0115156, 0 )
-shape = SubResource( 6 )
+[node name="TileHideTimer" type="Timer" parent="."]
+wait_time = 0.2
 
 [connection signal="StartButtonPressed" from="MainMenu" to="." method="_on_MainMenu_StartButtonPressed"]
 [connection signal="DifficultySliderChanged" from="HUD" to="." method="_on_HUD_DifficultySliderChanged"]
+[connection signal="LevelupButtonPressed" from="HUD" to="." method="_on_HUD_LevelupButtonPressed"]
+[connection signal="PlayagainButtonPressed" from="HUD" to="." method="_on_HUD_PlayagainButtonPressed"]
 [connection signal="ResetButtonPressed" from="HUD" to="." method="_on_HUD_ResetButtonPressed"]
-[connection signal="TestButtonPressed" from="HUD" to="." method="_on_HUD_TestButtonPressed"]
+[connection signal="timeout" from="TileHideTimer" to="." method="_on_TileHideTimer_timeout"]

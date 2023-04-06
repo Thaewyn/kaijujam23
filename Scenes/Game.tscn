@@ -1,14 +1,16 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://Entities/SingleTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GameController.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Images/whitePuff00.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Models/GameBoard.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://Assets/Materials/Flat_lightgreen.tres" type="Material" id=7]
 [ext_resource path="res://Assets/Materials/Flat_blue.tres" type="Material" id=8]
 [ext_resource path="res://Assets/Materials/Flat_green.tres" type="Material" id=9]
 [ext_resource path="res://Assets/Materials/Flat_red.tres" type="Material" id=10]
+[ext_resource path="res://Assets/Textures/smoke-2.tres" type="Material" id=11]
 [ext_resource path="res://Assets/Materials/Flat_brown.tres" type="Material" id=12]
 [ext_resource path="res://Assets/Materials/Flat_grey.tres" type="Material" id=13]
 [ext_resource path="res://Entities/MountainTile.tscn" type="PackedScene" id=14]
@@ -17,11 +19,70 @@
 [ext_resource path="res://Entities/LakeTile.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Entities/MonsterFootprintTile.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Entities/ForestTile.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Assets/Textures/spatial-cloud-material.tres" type="Material" id=20]
+[ext_resource path="res://Assets/Textures/tree-leaf.tres" type="Material" id=21]
+[ext_resource path="res://Assets/Audio/explosionCrunch_003.ogg" type="AudioStream" id=22]
+[ext_resource path="res://Assets/Audio/ready.ogg" type="AudioStream" id=23]
+[ext_resource path="res://Assets/Audio/game_over.ogg" type="AudioStream" id=24]
+[ext_resource path="res://Assets/Audio/error_008.ogg" type="AudioStream" id=25]
+[ext_resource path="res://Assets/Audio/confirmation_003.ogg" type="AudioStream" id=26]
+[ext_resource path="res://Assets/Audio/begin.ogg" type="AudioStream" id=27]
+[ext_resource path="res://Assets/Audio/click1.ogg" type="AudioStream" id=28]
+[ext_resource path="res://Assets/Audio/winner.ogg" type="AudioStream" id=29]
+[ext_resource path="res://Assets/Audio/loser.ogg" type="AudioStream" id=30]
+[ext_resource path="res://Assets/Audio/prepare_yourself.ogg" type="AudioStream" id=31]
+[ext_resource path="res://Assets/Models/GameLogo.obj" type="ArrayMesh" id=32]
+[ext_resource path="res://Assets/Audio/Ambience_Ancient_Tomb.wav" type="AudioStream" id=33]
 
 [sub_resource type="CubeMesh" id=1]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 9.96624, 0.150466, 9.93055 )
+
+[sub_resource type="Gradient" id=14]
+resource_local_to_scene = true
+offsets = PoolRealArray( 0.0325203, 0.902439 )
+colors = PoolColorArray( 0, 0, 0, 0.682353, 0.639216, 0.639216, 0.639216, 0.0313726 )
+
+[sub_resource type="GradientTexture" id=15]
+gradient = SubResource( 14 )
+width = 256
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 0 ), 0.0, 2.45472, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+width = 256
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+lifetime_randomness = 0.2
+gravity = Vector3( 0, 1.5, 0 )
+angular_velocity = 118.36
+angular_velocity_random = 0.37
+scale_curve = SubResource( 10 )
+color_ramp = SubResource( 15 )
+
+[sub_resource type="QuadMesh" id=13]
+material = ExtResource( 20 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+lifetime_randomness = 0.2
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+gravity = Vector3( 0, -1, 0 )
+angular_velocity = 118.36
+angular_velocity_random = 0.37
+scale = 0.5
+color = Color( 0.0196078, 0.533333, 0.0117647, 1 )
+
+[sub_resource type="QuadMesh" id=11]
+material = ExtResource( 21 )
+
+[sub_resource type="QuadMesh" id=16]
+
+[sub_resource type="SpatialMaterial" id=17]
+albedo_color = Color( 0.443137, 0.521569, 0.486275, 1 )
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -264,6 +325,45 @@ material/96 = ExtResource( 8 )
 material/97 = ExtResource( 12 )
 material/98 = ExtResource( 10 )
 
+[node name="Smoke" type="Particles" parent="Level/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 1.19209e-07, 0, -5.96046e-08, 1, -4.53322, 1.5649, 8.68859 )
+lifetime = 1.5
+visibility_aabb = AABB( -1.04195, -1.54471, -1.09319, 2.0839, 4.35407, 2.18639 )
+local_coords = false
+draw_order = 1
+process_material = SubResource( 6 )
+draw_pass_1 = SubResource( 13 )
+
+[node name="FallingLeaves" type="Particles" parent="Level/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 1.19209e-07, 0, -5.96046e-08, 1, -7.26418, 3.11044, -7.21288 )
+amount = 5
+lifetime = 5.0
+visibility_aabb = AABB( -1.36864, -3.66299, -1.50544, 2.73728, 4.659, 3.01087 )
+local_coords = false
+draw_order = 1
+process_material = SubResource( 12 )
+draw_pass_1 = SubResource( 11 )
+
+[node name="FallingLeaves2" type="Particles" parent="Level/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 1.19209e-07, 0, -5.96046e-08, 1, -2.96962, 0.288528, -8.11388 )
+amount = 10
+lifetime = 2.0
+visibility_aabb = AABB( -1.73676, 0.186248, -1.46423, 3.47351, 1.32379, 2.92847 )
+local_coords = false
+draw_order = 1
+process_material = SubResource( 12 )
+draw_pass_1 = SubResource( 11 )
+
+[node name="FallingLeaves3" type="Particles" parent="Level/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 1.19209e-07, 0, -5.96046e-08, 1, 1.65896, 0.288528, -8.11388 )
+amount = 10
+lifetime = 2.0
+visibility_aabb = AABB( -1.73676, -0.37967, -1.46423, 3.47351, 1.32379, 2.92847 )
+local_coords = false
+draw_order = 1
+process_material = SubResource( 12 )
+draw_pass_1 = SubResource( 11 )
+
 [node name="TilePositions" type="Position3D" parent="Level"]
 
 [node name="Center" type="Position3D" parent="Level/TilePositions"]
@@ -376,6 +476,67 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -3.3 )
 [node name="ThirdRing18" type="Position3D" parent="Level/TilePositions"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -4.95 )
 
+[node name="Logo" type="MeshInstance" parent="Level"]
+transform = Transform( -1.97035, 0, -0.343102, 0, 2, 0, 0.343102, 0, -1.97035, 3.07216, 7.39867, 12.0249 )
+mesh = ExtResource( 32 )
+material/0 = ExtResource( 10 )
+material/1 = ExtResource( 10 )
+material/2 = ExtResource( 10 )
+material/3 = ExtResource( 10 )
+material/4 = ExtResource( 10 )
+material/5 = ExtResource( 10 )
+material/6 = ExtResource( 10 )
+material/7 = ExtResource( 10 )
+material/8 = ExtResource( 10 )
+material/9 = ExtResource( 10 )
+material/10 = ExtResource( 10 )
+material/11 = ExtResource( 10 )
+material/12 = ExtResource( 10 )
+material/13 = ExtResource( 10 )
+material/14 = ExtResource( 10 )
+material/15 = ExtResource( 10 )
+material/16 = ExtResource( 10 )
+material/17 = ExtResource( 10 )
+material/18 = ExtResource( 10 )
+material/19 = ExtResource( 10 )
+material/20 = ExtResource( 10 )
+material/21 = ExtResource( 10 )
+material/22 = ExtResource( 10 )
+material/23 = ExtResource( 10 )
+material/24 = ExtResource( 10 )
+material/25 = ExtResource( 10 )
+material/26 = ExtResource( 10 )
+material/27 = ExtResource( 10 )
+material/28 = ExtResource( 10 )
+material/29 = ExtResource( 10 )
+material/30 = ExtResource( 10 )
+material/31 = ExtResource( 10 )
+material/32 = ExtResource( 10 )
+material/33 = ExtResource( 10 )
+material/34 = ExtResource( 9 )
+material/35 = ExtResource( 9 )
+material/36 = ExtResource( 9 )
+material/37 = ExtResource( 9 )
+material/38 = ExtResource( 9 )
+material/39 = ExtResource( 9 )
+material/40 = ExtResource( 9 )
+material/41 = ExtResource( 9 )
+material/42 = ExtResource( 9 )
+material/43 = ExtResource( 9 )
+material/44 = ExtResource( 9 )
+material/45 = ExtResource( 9 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Level/Logo"]
+transform = Transform( -2.51323, 0, -0.0425527, 0, 1.26579, 0, 0.0169287, 0, -0.999857, -9.53674e-07, 0.0448298, 0.188015 )
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[node name="SpotLight" type="SpotLight" parent="Level/Logo"]
+transform = Transform( -0.499483, 0, 0.0227251, 0, 0.5, 0, -0.0227251, 0, -0.499483, 0.439835, 0.264834, -0.961307 )
+light_energy = 2.454
+shadow_enabled = true
+spot_angle = 59.1779
+
 [node name="MainMenu" parent="." instance=ExtResource( 3 )]
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
@@ -387,6 +548,50 @@ anims/StartGameSwoosh = SubResource( 4 )
 
 [node name="TileHideTimer" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="Particles2D" type="Particles2D" parent="."]
+visible = false
+position = Vector2( 219, 207 )
+amount = 30
+lifetime = 2.0
+local_coords = false
+draw_order = 1
+process_material = ExtResource( 11 )
+texture = ExtResource( 5 )
+
+[node name="KaijuFootstep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+
+[node name="TileClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 28 )
+
+[node name="Ready" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+
+[node name="Begin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 27 )
+
+[node name="Winner" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 29 )
+
+[node name="GameOverVoice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
+
+[node name="Loser" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 30 )
+
+[node name="Error" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
+
+[node name="Confirmation" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 26 )
+
+[node name="PrepareVoice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 31 )
+
+[node name="BackgroundLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 33 )
+autoplay = true
 
 [connection signal="StartButtonPressed" from="MainMenu" to="." method="_on_MainMenu_StartButtonPressed"]
 [connection signal="DifficultySliderChanged" from="HUD" to="." method="_on_HUD_DifficultySliderChanged"]

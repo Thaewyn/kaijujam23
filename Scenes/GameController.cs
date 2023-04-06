@@ -26,6 +26,17 @@ public class GameController : Spatial {
   [Export] public float maxShakeV = 5.0f;
   private OpenSimplexNoise noise = new OpenSimplexNoise();
 
+  private AudioStreamPlayer KaijuFootstep;
+  private AudioStreamPlayer TileClick;
+  private AudioStreamPlayer Ready;
+  private AudioStreamPlayer Begin;
+  private AudioStreamPlayer Winner;
+  private AudioStreamPlayer GameOverVoice;
+  private AudioStreamPlayer Loser;
+  private AudioStreamPlayer Error;
+  private AudioStreamPlayer Confirmation;
+  private AudioStreamPlayer PrepareVoice;
+
   //game logic
   public enum GAME_STATE {
     MAIN_MENU,
@@ -47,6 +58,17 @@ public class GameController : Spatial {
     mainMenu = GetNode<CanvasLayer>("MainMenu");
     hud = GetNode<HUD>("HUD");
     tileFlipTimer = GetNode<Timer>("TileHideTimer");
+
+    KaijuFootstep = GetNode<AudioStreamPlayer>("KaijuFootstep");
+    TileClick = GetNode<AudioStreamPlayer>("TileClick");
+    Ready = GetNode<AudioStreamPlayer>("Ready");
+    Begin = GetNode<AudioStreamPlayer>("Begin");
+    Winner = GetNode<AudioStreamPlayer>("Winner");
+    GameOverVoice = GetNode<AudioStreamPlayer>("GameOverVoice");
+    Loser = GetNode<AudioStreamPlayer>("Loser");
+    Error = GetNode<AudioStreamPlayer>("Error");
+    Confirmation = GetNode<AudioStreamPlayer>("Confirmation");
+    PrepareVoice = GetNode<AudioStreamPlayer>("PrepareVoice");
 
     noise.Seed = (int)GD.Randi();
     noise.Octaves = 4;
@@ -76,6 +98,7 @@ public class GameController : Spatial {
     difficulty = 1;
     kaijuFlags = 0;
     PrintInstructions();
+    Ready.Play();
   }
 
   private void PrintInstructions(){
@@ -95,6 +118,7 @@ public class GameController : Spatial {
     //repopulate tiles?
     PopulateTiles();
 
+    Begin.Play();
     player_health = 3;
     clickCounter = 0;
     kaijuFlags = 0;
@@ -125,6 +149,7 @@ public class GameController : Spatial {
 
   private void GameOver() {
     //called when the map / level ends
+    GameOverVoice.Play();
     hud.UpdateStatsText("Game Over!\nClick the button to restart!");
     hud.ShowResetButton();
   }
@@ -160,6 +185,7 @@ public class GameController : Spatial {
     // GD.Print("Got 'startbuttonpressed' from mainmenu - tell camera to animate.");
     // mainCam_actual.StartGame();
     anim.Play("StartGameSwoosh");
+    Begin.Play();
     gameState = GAME_STATE.PLAYER_TURN;
   }
 
@@ -310,12 +336,14 @@ public class GameController : Spatial {
 
       if(whichTile is MonsterFootprintTile) {
         //correct! Flag tile.
+        Confirmation.Play();
         hud.UpdateStatsText("Correct! It's a Kaiju! Flag this tile.");
         MonsterFootprintTile m = whichTile as MonsterFootprintTile;
         m.FlagTile();
         kaijuFlags++;
         // GD.Print("flags = "+kaijuFlags+", count = "+kaijuCount);
         if(kaijuFlags >= kaijuCount) {
+          Winner.Play();
           hud.UpdateStatsText("YOU WIN!");
           hud.AppendStatsText("Click a button to continue! Increase difficulty if you want more possible Kaiju tiles");
           hud.ShowPlayagainButton();
@@ -323,11 +351,13 @@ public class GameController : Spatial {
           gameState = GAME_STATE.GAME_OVER;
         }
       } else {
+        Error.Play();
         //incorrect. Lose HP
         hud.UpdateStatsText("Incorrect Flag!");
         player_health--;
         // GD.Print("player health: "+player_health);
         if(player_health <= 0) {
+          Loser.Play();
           hud.UpdateStatsText("Game Over!");
           hud.AppendStatsText("Missed too many times. Click 'Restart' to try again!");
           hud.ShowResetButton();
@@ -343,16 +373,19 @@ public class GameController : Spatial {
     // GD.Print("Game Controller received TileWasClicked:");
     // GD.Print(whichTile.Name);
     // Vector3 pos = whichTile.GetParent().Transform;
-    
+    TileClick.Play();
+
     if(gameState == GAME_STATE.PLAYER_TURN) {
-      
+
       if (whichTile is MonsterFootprintTile) {
         // GD.Print("clicked monster footprint, GAME OVER!");
         // do screenshake and things
         SingleTile tile = whichTile as SingleTile;
         tile.FlipMe();
         MakeScreenShake();
+        KaijuFootstep.Play();
         GameOver();
+        gameState = GAME_STATE.GAME_OVER;
       } else {
         //non-monster tile.
         SingleTile tile = whichTile as SingleTile;
@@ -366,7 +399,7 @@ public class GameController : Spatial {
           //face up logic
           tile.FlipMe();
           clickCounter++;
-          
+
           hud.UpdateStatsText("Clicks: "+clickCounter);
           hud.AppendStatsText("Nearest Kaiju: "+dist);
         } else {
@@ -401,7 +434,7 @@ public class GameController : Spatial {
   private float GetDistanceToNearestMonster(Vector3 targetpos) {
     //given a position, return the nearest monster tile distance in game units.
     float minDistance = 30.0f;
-    
+
     Godot.Collections.Array tiles = GetTree().GetNodesInGroup("tiles");
     foreach (Node t in tiles) {
       // SingleTile tile = t as SingleTile;

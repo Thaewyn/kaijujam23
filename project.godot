@@ -14,9 +14,20 @@ config/name="Kaijujam-2023"
 run/main_scene="res://Scenes/Game.tscn"
 config/icon="res://Assets/Images/icon.png"
 
+[global]
+
+volume=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[importer_defaults]
+
+ogg_vorbis={
+"loop": false,
+"loop_offset": 0
+}
 
 [mono]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Entities/SingleTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GameController.cs" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Entities/ForestTile.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Assets/Textures/spatial-cloud-material.tres" type="Material" id=20]
 [ext_resource path="res://Assets/Textures/tree-leaf.tres" type="Material" id=21]
+[ext_resource path="res://Assets/Audio/explosionCrunch_003.ogg" type="AudioStream" id=22]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -480,6 +481,9 @@ local_coords = false
 draw_order = 1
 process_material = ExtResource( 11 )
 texture = ExtResource( 5 )
+
+[node name="KaijuFootstep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
 
 [connection signal="StartButtonPressed" from="MainMenu" to="." method="_on_MainMenu_StartButtonPressed"]
 [connection signal="DifficultySliderChanged" from="HUD" to="." method="_on_HUD_DifficultySliderChanged"]

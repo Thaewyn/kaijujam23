@@ -26,6 +26,8 @@ public class GameController : Spatial {
   [Export] public float maxShakeV = 5.0f;
   private OpenSimplexNoise noise = new OpenSimplexNoise();
 
+  private AudioStreamPlayer KaijuFootstep;
+
   //game logic
   public enum GAME_STATE {
     MAIN_MENU,
@@ -47,6 +49,8 @@ public class GameController : Spatial {
     mainMenu = GetNode<CanvasLayer>("MainMenu");
     hud = GetNode<HUD>("HUD");
     tileFlipTimer = GetNode<Timer>("TileHideTimer");
+
+    KaijuFootstep = GetNode<AudioStreamPlayer>("KaijuFootstep");
 
     noise.Seed = (int)GD.Randi();
     noise.Octaves = 4;
@@ -343,15 +347,16 @@ public class GameController : Spatial {
     // GD.Print("Game Controller received TileWasClicked:");
     // GD.Print(whichTile.Name);
     // Vector3 pos = whichTile.GetParent().Transform;
-    
+
     if(gameState == GAME_STATE.PLAYER_TURN) {
-      
+
       if (whichTile is MonsterFootprintTile) {
         // GD.Print("clicked monster footprint, GAME OVER!");
         // do screenshake and things
         SingleTile tile = whichTile as SingleTile;
         tile.FlipMe();
         MakeScreenShake();
+        KaijuFootstep.Play();
         GameOver();
       } else {
         //non-monster tile.
@@ -366,7 +371,7 @@ public class GameController : Spatial {
           //face up logic
           tile.FlipMe();
           clickCounter++;
-          
+
           hud.UpdateStatsText("Clicks: "+clickCounter);
           hud.AppendStatsText("Nearest Kaiju: "+dist);
         } else {
@@ -401,7 +406,7 @@ public class GameController : Spatial {
   private float GetDistanceToNearestMonster(Vector3 targetpos) {
     //given a position, return the nearest monster tile distance in game units.
     float minDistance = 30.0f;
-    
+
     Godot.Collections.Array tiles = GetTree().GetNodesInGroup("tiles");
     foreach (Node t in tiles) {
       // SingleTile tile = t as SingleTile;

@@ -1,16 +1,14 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Entities/SingleTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GameController.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/Images/whitePuff00.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Models/GameBoard.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://Assets/Materials/Flat_lightgreen.tres" type="Material" id=7]
 [ext_resource path="res://Assets/Materials/Flat_blue.tres" type="Material" id=8]
 [ext_resource path="res://Assets/Materials/Flat_green.tres" type="Material" id=9]
 [ext_resource path="res://Assets/Materials/Flat_red.tres" type="Material" id=10]
-[ext_resource path="res://Assets/Textures/smoke-2.tres" type="Material" id=11]
 [ext_resource path="res://Assets/Materials/Flat_brown.tres" type="Material" id=12]
 [ext_resource path="res://Assets/Materials/Flat_grey.tres" type="Material" id=13]
 [ext_resource path="res://Entities/MountainTile.tscn" type="PackedScene" id=14]
@@ -22,6 +20,7 @@
 [ext_resource path="res://Assets/Textures/spatial-cloud-material.tres" type="Material" id=20]
 [ext_resource path="res://Assets/Textures/tree-leaf.tres" type="Material" id=21]
 [ext_resource path="res://Assets/Models/GameLogo.obj" type="ArrayMesh" id=22]
+[ext_resource path="res://Assets/Audio/explosionCrunch_003.ogg" type="AudioStream" id=23]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -542,15 +541,8 @@ anims/StartGameSwoosh = SubResource( 4 )
 [node name="TileHideTimer" type="Timer" parent="."]
 wait_time = 0.2
 
-[node name="Particles2D" type="Particles2D" parent="."]
-visible = false
-position = Vector2( 219, 207 )
-amount = 30
-lifetime = 2.0
-local_coords = false
-draw_order = 1
-process_material = ExtResource( 11 )
-texture = ExtResource( 5 )
+[node name="KaijuFootstep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
 
 [connection signal="StartButtonPressed" from="MainMenu" to="." method="_on_MainMenu_StartButtonPressed"]
 [connection signal="DifficultySliderChanged" from="HUD" to="." method="_on_HUD_DifficultySliderChanged"]

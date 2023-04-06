@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Entities/SingleTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GameController.cs" type="Script" id=2]
@@ -20,16 +20,52 @@
 [ext_resource path="res://Entities/MonsterFootprintTile.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Entities/ForestTile.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Assets/Textures/spatial-cloud-material.tres" type="Material" id=20]
+[ext_resource path="res://Assets/Textures/tree-leaf.tres" type="Material" id=21]
 
 [sub_resource type="CubeMesh" id=1]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 9.96624, 0.150466, 9.93055 )
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="Gradient" id=14]
+resource_local_to_scene = true
+offsets = PoolRealArray( 0.0325203, 0.902439 )
+colors = PoolColorArray( 0, 0, 0, 0.682353, 0.639216, 0.639216, 0.639216, 0.0313726 )
 
-[sub_resource type="PlaneMesh" id=7]
+[sub_resource type="GradientTexture" id=15]
+gradient = SubResource( 14 )
+width = 256
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 0 ), 0.0, 2.45472, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+width = 256
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+lifetime_randomness = 0.2
+gravity = Vector3( 0, 1.5, 0 )
+angular_velocity = 118.36
+angular_velocity_random = 0.37
+scale_curve = SubResource( 10 )
+color_ramp = SubResource( 15 )
+
+[sub_resource type="QuadMesh" id=13]
 material = ExtResource( 20 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+lifetime_randomness = 0.2
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+gravity = Vector3( 0, -1, 0 )
+angular_velocity = 118.36
+angular_velocity_random = 0.37
+scale = 0.5
+color = Color( 0.0196078, 0.533333, 0.0117647, 1 )
+
+[sub_resource type="QuadMesh" id=11]
+material = ExtResource( 21 )
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -272,20 +308,44 @@ material/96 = ExtResource( 8 )
 material/97 = ExtResource( 12 )
 material/98 = ExtResource( 10 )
 
-[node name="Particles2D" type="Particles2D" parent="Level/Ground"]
-visible = false
-position = Vector2( 219, 207 )
-amount = 30
-lifetime = 2.0
+[node name="Smoke" type="Particles" parent="Level/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 1.19209e-07, 0, -5.96046e-08, 1, -4.53322, 1.5649, 8.68859 )
+lifetime = 1.5
+visibility_aabb = AABB( -1.04195, -1.54471, -1.09319, 2.0839, 4.35407, 2.18639 )
 local_coords = false
 draw_order = 1
-process_material = ExtResource( 11 )
-texture = ExtResource( 5 )
-
-[node name="Particles" type="Particles" parent="Level/Ground"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.01005, 0 )
 process_material = SubResource( 6 )
-draw_pass_1 = SubResource( 7 )
+draw_pass_1 = SubResource( 13 )
+
+[node name="FallingLeaves" type="Particles" parent="Level/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 1.19209e-07, 0, -5.96046e-08, 1, -7.26418, 3.11044, -7.21288 )
+amount = 5
+lifetime = 5.0
+visibility_aabb = AABB( -1.36864, -3.66299, -1.50544, 2.73728, 4.659, 3.01087 )
+local_coords = false
+draw_order = 1
+process_material = SubResource( 12 )
+draw_pass_1 = SubResource( 11 )
+
+[node name="FallingLeaves2" type="Particles" parent="Level/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 1.19209e-07, 0, -5.96046e-08, 1, -2.96962, 0.288528, -8.11388 )
+amount = 10
+lifetime = 2.0
+visibility_aabb = AABB( -1.73676, 0.186248, -1.46423, 3.47351, 1.32379, 2.92847 )
+local_coords = false
+draw_order = 1
+process_material = SubResource( 12 )
+draw_pass_1 = SubResource( 11 )
+
+[node name="FallingLeaves3" type="Particles" parent="Level/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 1.19209e-07, 0, -5.96046e-08, 1, 1.65896, 0.288528, -8.11388 )
+amount = 10
+lifetime = 2.0
+visibility_aabb = AABB( -1.73676, -0.37967, -1.46423, 3.47351, 1.32379, 2.92847 )
+local_coords = false
+draw_order = 1
+process_material = SubResource( 12 )
+draw_pass_1 = SubResource( 11 )
 
 [node name="TilePositions" type="Position3D" parent="Level"]
 
@@ -410,6 +470,16 @@ anims/StartGameSwoosh = SubResource( 4 )
 
 [node name="TileHideTimer" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="Particles2D" type="Particles2D" parent="."]
+visible = false
+position = Vector2( 219, 207 )
+amount = 30
+lifetime = 2.0
+local_coords = false
+draw_order = 1
+process_material = ExtResource( 11 )
+texture = ExtResource( 5 )
 
 [connection signal="StartButtonPressed" from="MainMenu" to="." method="_on_MainMenu_StartButtonPressed"]
 [connection signal="DifficultySliderChanged" from="HUD" to="." method="_on_HUD_DifficultySliderChanged"]

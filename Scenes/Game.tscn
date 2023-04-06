@@ -1,14 +1,16 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Entities/SingleTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GameController.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Images/whitePuff00.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Models/GameBoard.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://Assets/Materials/Flat_lightgreen.tres" type="Material" id=7]
 [ext_resource path="res://Assets/Materials/Flat_blue.tres" type="Material" id=8]
 [ext_resource path="res://Assets/Materials/Flat_green.tres" type="Material" id=9]
 [ext_resource path="res://Assets/Materials/Flat_red.tres" type="Material" id=10]
+[ext_resource path="res://Assets/Textures/smoke-2.tres" type="Material" id=11]
 [ext_resource path="res://Assets/Materials/Flat_brown.tres" type="Material" id=12]
 [ext_resource path="res://Assets/Materials/Flat_grey.tres" type="Material" id=13]
 [ext_resource path="res://Entities/MountainTile.tscn" type="PackedScene" id=14]
@@ -17,11 +19,17 @@
 [ext_resource path="res://Entities/LakeTile.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Entities/MonsterFootprintTile.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Entities/ForestTile.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Assets/Textures/spatial-cloud-material.tres" type="Material" id=20]
 
 [sub_resource type="CubeMesh" id=1]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 9.96624, 0.150466, 9.93055 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+
+[sub_resource type="PlaneMesh" id=7]
+material = ExtResource( 20 )
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -263,6 +271,21 @@ material/95 = ExtResource( 8 )
 material/96 = ExtResource( 8 )
 material/97 = ExtResource( 12 )
 material/98 = ExtResource( 10 )
+
+[node name="Particles2D" type="Particles2D" parent="Level/Ground"]
+visible = false
+position = Vector2( 219, 207 )
+amount = 30
+lifetime = 2.0
+local_coords = false
+draw_order = 1
+process_material = ExtResource( 11 )
+texture = ExtResource( 5 )
+
+[node name="Particles" type="Particles" parent="Level/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.01005, 0 )
+process_material = SubResource( 6 )
+draw_pass_1 = SubResource( 7 )
 
 [node name="TilePositions" type="Position3D" parent="Level"]
 

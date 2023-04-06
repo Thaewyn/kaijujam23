@@ -35,7 +35,6 @@ public class GameController : Spatial {
   private AudioStreamPlayer Loser;
   private AudioStreamPlayer Error;
   private AudioStreamPlayer Confirmation;
-  private AudioStreamPlayer PrepareVoice;
 
   //game logic
   public enum GAME_STATE {
@@ -68,7 +67,6 @@ public class GameController : Spatial {
     Loser = GetNode<AudioStreamPlayer>("Loser");
     Error = GetNode<AudioStreamPlayer>("Error");
     Confirmation = GetNode<AudioStreamPlayer>("Confirmation");
-    PrepareVoice = GetNode<AudioStreamPlayer>("PrepareVoice");
 
     noise.Seed = (int)GD.Randi();
     noise.Octaves = 4;

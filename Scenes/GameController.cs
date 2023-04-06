@@ -385,6 +385,7 @@ public class GameController : Spatial {
         MakeScreenShake();
         KaijuFootstep.Play();
         GameOver();
+        gameState = GAME_STATE.GAME_OVER;
       } else {
         //non-monster tile.
         SingleTile tile = whichTile as SingleTile;
